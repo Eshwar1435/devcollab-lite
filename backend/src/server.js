@@ -24,7 +24,10 @@ function resolveCorsOrigins() {
 
 app.use(
   cors({
-    origin: resolveCorsOrigins(),
+    origin: [
+      "http://localhost:3000",
+      "https://devcollab-lite.vercel.app"
+    ],
     credentials: true,
   })
 );
