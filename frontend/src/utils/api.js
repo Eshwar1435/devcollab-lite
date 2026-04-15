@@ -1,5 +1,7 @@
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || `${window.location.protocol}//${window.location.hostname}:5000/api`;
+  process.env.REACT_APP_API_URL
+    ? `${process.env.REACT_APP_API_URL}/api`
+    : `${window.location.protocol}//${window.location.hostname}:5000/api`;
 const STORAGE_KEY = 'devcollab-lite-auth';
 
 function getStoredAuth() {
