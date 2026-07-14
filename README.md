@@ -1,30 +1,109 @@
-# DevCollab Lite
+# 🤝 DevCollab Lite
 
-DevCollab Lite is a full-stack developer collaboration app with a React frontend, an Express backend, PostgreSQL persistence, JWT auth, and bcrypt password hashing.
+A lightweight full-stack collaboration platform for development teams to manage projects and tasks with JWT-based authentication, PostgreSQL persistence, and a modern React interface.
 
-## Project Structure
+## 🚀 Overview
 
-- `backend/` - Node.js + Express API
-- `frontend/` - React app with Tailwind CSS
-- `backend/src/db/schema.sql` - PostgreSQL schema
+DevCollab Lite solves the need for a simple project/task collaboration system where teams can:
 
-Additional DevOps files:
+- Create accounts and log in securely
+- Create and manage projects
+- Create, update, and organize tasks by status
 
-- `backend/Dockerfile`
-- `frontend/Dockerfile`
-- `docker-compose.yml`
-- `.github/workflows/ci-cd.yml`
+It combines a React frontend, an Express backend API, and PostgreSQL storage, with optional Docker-based deployment and CI/CD automation.
 
-## Prerequisites
+## ✨ Features
 
+Implemented features (based on repository code and configuration):
+
+- User authentication with signup/login endpoints
+- JWT-based protected API access
+- Password hashing using bcrypt
+- Project management API (`GET` / `POST`)
+- Task management API (`GET` / `POST` / `PUT`)
+- Task board workflow with drag-and-drop support (as documented in project notes)
+- Backend health endpoints (`/` and `/api/health`)
+- PostgreSQL schema bootstrap via `backend/src/db/schema.sql`
+- Docker support for frontend, backend, and database using `docker-compose.yml`
+- Frontend built with React and Tailwind CSS
+- GitHub Actions CI/CD workflow for install, build, and Docker image build
+
+## 🛠️ Tech Stack
+
+### Programming Languages
+- JavaScript
+- SQL
+
+### Frameworks
+- React (frontend)
+- Express.js (backend)
+- Node.js runtime
+
+### Libraries
+- Authentication/Security: `jsonwebtoken`, `bcrypt` (as documented/used by backend design)
+- Frontend ecosystem: React tooling and build chain
+- Backend dependencies via `backend/package.json`
+- Frontend dependencies via `frontend/package.json`
+
+### Database
+- PostgreSQL
+
+### Tools
+- Docker
+- Docker Compose
+- GitHub Actions
+- npm
+- Tailwind CSS
+- PostCSS
+
+### AI/ML Models
+- Not applicable in current implementation.
+
+## 🗂️ Project Structure
+
+```text
+devcollab-lite/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+├── backend/
+│   ├── src/
+│   │   ├── db/
+│   │   │   └── schema.sql
+│   │   └── ... (API/server modules)
+│   ├── .env.example
+│   ├── Dockerfile
+│   └── package.json
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   └── ... (React app modules)
+│   ├── .env.example
+│   ├── Dockerfile
+│   ├── tailwind.config.js
+│   ├── postcss.config.js
+│   └── package.json
+├── docker-compose.yml
+└── README.md
+```
+
+## ⚙️ Installation
+
+### Prerequisites
 - Node.js 18+
 - PostgreSQL 14+
-- Docker + Docker Compose (for containerized run)
+- npm
+- (Optional) Docker + Docker Compose
 
-## Environment Variables
+### 1) Clone repository
+```bash
+git clone https://github.com/Eshwar1435/devcollab-lite.git
+cd devcollab-lite
+```
+
+### 2) Setup environment variables
 
 Create `backend/.env`:
-
 ```env
 PORT=5000
 DATABASE_URL=postgres://postgres:password@localhost:5432/devcollab_lite
@@ -33,13 +112,11 @@ CLIENT_URL=http://localhost:3000
 ```
 
 Create `frontend/.env`:
-
 ```env
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-Create root `.env` for Docker Compose (copy from `.env.example`):
-
+(Optional root `.env` for Docker Compose):
 ```env
 POSTGRES_DB=devcollab_lite
 POSTGRES_USER=postgres
@@ -50,107 +127,97 @@ CLIENT_URL=http://localhost:3000
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-## Install
-
-Install dependencies in each app folder:
-
+### 3) Install dependencies
 ```bash
 cd backend
 npm install
-
 cd ../frontend
 npm install
 ```
 
-## Database Setup
-
-1. Create the database.
-
+### 4) Initialize database
 ```bash
 createdb devcollab_lite
-```
-
-2. Apply the schema.
-
-```bash
 psql "$DATABASE_URL" -f backend/src/db/schema.sql
 ```
 
-If you prefer, run the SQL in `backend/src/db/schema.sql` through pgAdmin or another PostgreSQL client.
+## ▶️ Usage
 
-## Run
+### Run locally (without Docker)
 
-Start the backend:
-
+Backend:
 ```bash
 cd backend
 npm run dev
 ```
 
-Start the frontend in another terminal:
-
+Frontend (new terminal):
 ```bash
 cd frontend
 npm start
 ```
 
-## Run With Docker Compose
+Default local URLs:
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:5000`
 
-1. Create `.env` in the project root using `.env.example` values.
-2. Start all services:
+### Run with Docker Compose
 
 ```bash
 docker-compose up --build
 ```
 
-Services and ports:
-
+Services:
 - Frontend: `http://localhost:3000`
 - Backend: `http://localhost:5000`
 - PostgreSQL: `localhost:5432`
 
-Compose services:
+## 📸 Screenshots
 
-- `frontend` serves the React production build on port `3000`
-- `backend` runs `node src/server.js` on port `5000`
-- `postgres` initializes schema from `backend/src/db/schema.sql`
+> Screenshots are not included in the repository yet.
 
-## API Endpoints
+Suggested placeholders:
+- `docs/screenshots/login.png` *(Work in Progress)*
+- `docs/screenshots/projects-dashboard.png` *(Work in Progress)*
+- `docs/screenshots/task-board.png` *(Work in Progress)*
 
-- `POST /api/auth/signup`
-- `POST /api/auth/login`
-- `GET /api/projects`
-- `POST /api/projects`
-- `GET /api/tasks/:projectId`
-- `POST /api/tasks`
-- `PUT /api/tasks/:id`
+## 🔮 Future Improvements
 
-Health checks:
+- Add role-based access control (admin/member scopes)
+- Add project member invitations and collaboration permissions
+- Add pagination/filtering/search for projects and tasks
+- Add automated tests (unit + integration + e2e)
+- Add API rate limiting and improved audit logging
+- Add real-time updates (WebSocket/SSE)
+- Improve production observability and error tracing
 
-- `GET /` (service metadata)
-- `GET /api/health`
+## 🤝 Contributing
 
-## CI/CD (GitHub Actions)
+Contributions are welcome.
 
-Workflow file: `.github/workflows/ci-cd.yml`
+1. Fork the repository
+2. Create your branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "feat: add meaningful update"
+   ```
+4. Push your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a Pull Request
 
-Trigger:
+Please keep PRs focused and include clear descriptions of changes.
 
-- Push to `main`
+## 📄 License
 
-Pipeline steps:
+This project is licensed under the **MIT License**.
 
-- Install backend dependencies (`npm ci`)
-- Run backend syntax check (`node --check src/server.js`)
-- Install frontend dependencies (`npm ci`)
-- Build frontend (`npm run build`)
-- Build Docker image for backend
-- Build Docker image for frontend
-- Optional Docker Hub push when `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets are configured
+If a `LICENSE` file is not yet present, add a standard MIT License file at the repository root.
 
-## Notes
+## 👨‍💻 Author
 
-- JWT is stored in `localStorage` on the client after login.
-- Protected API routes require `Authorization: Bearer <token>`.
-- Tasks support drag and drop in the board UI, plus direct status updates.
-- Backend CORS uses `CLIENT_URL` (supports comma-separated origins).
+**Eshwar Nomula**
