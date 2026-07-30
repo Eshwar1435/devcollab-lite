@@ -113,7 +113,13 @@ CLIENT_URL=http://localhost:3000
 
 Create `frontend/.env`:
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_API_URL=http://localhost:5000
+```
+
+For production (e.g. backend deployed on Render), set `REACT_APP_API_URL` to the backend origin **without** a trailing `/api`:
+
+```env
+REACT_APP_API_URL=https://your-render-app.onrender.com
 ```
 
 (Optional root `.env` for Docker Compose):
@@ -124,7 +130,7 @@ POSTGRES_PASSWORD=postgres
 BACKEND_PORT=5000
 JWT_SECRET=replace_with_a_long_random_secret
 CLIENT_URL=http://localhost:3000
-REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_API_URL=http://localhost:5000
 ```
 
 ### 3) Install dependencies
